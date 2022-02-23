@@ -1,10 +1,9 @@
-// import MyComponent from "./components/MyComponent";
-import Say from "./components/Say";
+import IterationSample from "./components/IterationSample";
 
 function App() {
   return (
     <>
-      <Say />
+      <IterationSample />
     </>
   );
 }
