@@ -1,7 +1,10 @@
+import { useRef } from "react";
 import { useState } from "react";
 
 const IterationSample = () => {
-  const [nextId, setNextId] = useState(5);
+  // const [nextId, setNextId] = useState(5);
+  const nextId = useRef(5);
+
   const [names, setNames] = useState([
     { id: 1, text: "눈사람" },
     { id: 2, text: "얼음" },
@@ -17,10 +20,10 @@ const IterationSample = () => {
   const handleClick = () => {
     if (!text) return;
 
-    const newNames = [...names, { id: nextId, text: text }];
+    const newNames = [...names, { id: nextId.current, text }];
     setNames(newNames);
     setText("");
-    setNextId((prev) => prev + 1);
+    nextId.current = nextId.current + 1;
   };
   const handleDelete = (id) => {
     // id로 뺄 element를 찾아서 걔가 빠진 새로운 배열을 만든다.
