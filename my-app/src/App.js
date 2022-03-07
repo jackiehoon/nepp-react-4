@@ -1,9 +1,9 @@
-import Todo from "./components/Axios";
+import Bootstrap from "./components/bootstrap/Bootstrap";
 
 function App() {
   return (
     <>
-      <Todo />
+      <Bootstrap />
     </>
   );
 }
