@@ -7,7 +7,7 @@ const Dropdown = () => {
 
   useEffect(() => {
     const onClick = (e) => {
-      if (btnEl.current !== e.target) setShowList(false);
+      if (!btnEl.current.contains(e.target)) setShowList(false);
     };
     document.body.addEventListener("click", onClick);
     return () => {
@@ -16,10 +16,8 @@ const Dropdown = () => {
   }, []);
 
   return (
-    <Wrapper>
-      <Button ref={btnEl} onClick={() => setShowList(!showList)}>
-        Dropdown
-      </Button>
+    <Wrapper ref={btnEl}>
+      <Button onClick={() => setShowList(!showList)}>Dropdown</Button>
       {showList && (
         <List>
           <Item>Item #1</Item>
@@ -34,6 +32,7 @@ const Dropdown = () => {
 
 const Wrapper = styled.div`
   position: relative;
+  display: inline-block;
 `;
 const Button = styled.button``;
 const List = styled.ul`

@@ -25,3 +25,10 @@ export const accordionData = [
          laborum.`,
   },
 ];
+
+export const carouselData = [
+  "https://cdn.pixabay.com/photo/2019/08/01/12/36/illustration-4377408_960_720.png",
+  "https://www.sjpost.co.kr/news/photo/202007/53199_48342_4214.jpg",
+  "https://t1.daumcdn.net/cfile/tistory/9946A4505F5817A60D",
+  "https://og-data.s3.amazonaws.com/media/artworks/half/A0880/A0880-0016.jpg",
+];

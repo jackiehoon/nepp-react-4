@@ -1,6 +1,7 @@
 import Accordion from "./Accordion";
-import { accordionData } from "../../datas/bootstrap";
+import { accordionData, carouselData } from "../../datas/bootstrap";
 import Dropdown from "./Dropdown";
+import Carousel from "./Carousel";
 
 const Bootstrap = () => {
   return (
@@ -9,6 +10,7 @@ const Bootstrap = () => {
       <Accordion data={accordionData} />
       <Accordion data={[{ title: "HIhi", content: "ASDFasdfdf" }]} />
       <Dropdown />
+      <Carousel data={carouselData} />
     </div>
   );
 };
