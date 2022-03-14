@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Carousel = ({ data }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [goodToGo, setGoodToGo] = useState(true);
+
   useEffect(() => {
     setGoodToGo(false);
 
