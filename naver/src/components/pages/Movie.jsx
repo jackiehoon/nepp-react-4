@@ -1,31 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+
+import { getMovieList } from "../../apis";
 import MovieList from "../organisms/MovieList";
+import { countryList, genreList } from "../../datas";
 
 const Movie = () => {
   const [text, setText] = useState("");
+  const [genre, setGenre] = useState("ALL");
+  const [country, setCountry] = useState("ALL");
   const [movieList, setMovieList] = useState([]);
+
+  useEffect(() => {
+    searchMovieList();
+  }, [country, genre]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const result = await axios.get("/v1/search/movie.json", {
-      headers: {
-        "X-Naver-Client-Id": "cXImhXldb32v4Yu5Hs9T",
-        "X-Naver-Client-Secret": "kcNwJta1kV",
-      },
-      params: {
-        query: text,
-      },
-    });
-    setMovieList(result.data.items);
+    searchMovieList();
+  };
+
+  const searchMovieList = async () => {
+    if (text === "") return;
+
+    // const params = { query: text, country };
+    // if(country === "ALL") delete params.country;
+
+    const params = { query: text };
+    if (country !== "ALL") params.country = country;
+    if (genre !== "ALL") params.genre = genre;
+
+    const { items } = await getMovieList(params);
+    setMovieList(items);
   };
 
   return (
     <Wrapper>
       <PageTitle>Movie</PageTitle>
       <Form onSubmit={handleSubmit}>
+        <select onChange={(e) => setCountry(e.target.value)} value={country}>
+          <option value="ALL">전체</option>
+          {countryList.map(({ code, name }) => (
+            <option value={code} key={code}>
+              {name}
+            </option>
+          ))}
+        </select>
+        <select onChange={(e) => setGenre(e.target.value)} value={genre}>
+          <option value="ALL">전체</option>
+          {genreList.map(({ code, name }) => (
+            <option key={code} value={code}>
+              {name}
+            </option>
+          ))}
+        </select>
         <InputText
           placeholder="Search"
           onChange={(e) => setText(e.target.value)}
@@ -37,11 +66,12 @@ const Movie = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  padding: 15px;
+`;
 const PageTitle = styled.h2``;
 const Form = styled.form`
   display: flex;
-  padding: 15px;
 `;
 const InputText = styled.input`
   flex: 1;
