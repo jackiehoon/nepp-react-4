@@ -29,11 +29,12 @@ const Book = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  padding: 15px;
+`;
 const PageTitle = styled.h2``;
 const Form = styled.form`
   display: flex;
-  padding: 15px;
 `;
 const InputText = styled.input`
   flex: 1;
