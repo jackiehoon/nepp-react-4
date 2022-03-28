@@ -1,17 +1,19 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import UserContext from "../../contexts/user";
+import styled from "styled-components";
+import { MainRight } from "../organisms";
 
 const Main = () => {
-  const { isLogin } = useContext(UserContext);
-
   return (
-    <h1>
-      {isLogin ? "로그인 됨!" : "로그인 안됨"}
-      <Link to="/login">로그인</Link>
-      <Link to="/logout">로그아웃</Link>
-    </h1>
+    <Container>
+      <Left></Left>
+      <MainRight />
+    </Container>
   );
 };
 
+const Container = styled.div`
+  display: flex;
+`;
+const Left = styled.div`
+  flex: 1;
+`;
 export default Main;

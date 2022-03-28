@@ -37,6 +37,7 @@ const Login = () => {
     if (!success) return alert(message);
 
     alert("로그인 성공");
+
     instance.defaults.headers.common["authorization"] = token;
     localStorage.token = token;
     setIsLogin(true);
