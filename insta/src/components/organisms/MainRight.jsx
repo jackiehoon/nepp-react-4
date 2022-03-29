@@ -19,6 +19,9 @@ const MainRight = () => {
 
 const Right = styled.div`
   width: 293px;
+  position: sticky;
+  top: 80px;
+  height: 140px;
 `;
 
 const MyProfile = styled.div`

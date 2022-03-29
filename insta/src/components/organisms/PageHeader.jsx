@@ -57,6 +57,9 @@ const Header = styled.header`
   height: 60px;
   background: #fff;
   border-bottom: 1px solid #dbdbdb;
+  position: fixed;
+  top: 0;
+  width: 100%;
 `;
 const Main = styled.div`
   max-width: 975px;
@@ -113,5 +116,6 @@ const OutletWrapper = styled.main`
   max-width: 935px;
   margin: 0 auto;
   padding: 15px 0;
+  margin-top: 60px;
 `;
 export default PageHeader;
