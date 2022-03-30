@@ -1,9 +1,21 @@
 import styled from "styled-components";
 import { MainRight, MainPostList, MainShortsList } from "../organisms";
-import { postList } from "../../datas/posts";
+// import { postList } from "../../datas/posts";
 import { shortsList } from "../../datas/shorts";
+import { useEffect, useState } from "react";
+import { getPostsMain } from "../../apis/post";
 
 const Main = () => {
+  const [postList, setPostList] = useState([]);
+  useEffect(() => {
+    refreshList();
+  }, []);
+
+  const refreshList = async () => {
+    const { postList } = await getPostsMain();
+    setPostList(postList);
+  };
+
   return (
     <Container>
       <Left>

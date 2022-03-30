@@ -10,16 +10,18 @@ const MainPostList = ({ data }) => {
     <List>
       {data.map(
         ({
-          user: { name, profileImage },
+          id,
+          name,
           imageList,
-          likes,
+          profile_image,
+          likes = {},
           content,
-          replys,
+          replys = { items: [] },
           created_at,
         }) => (
-          <Post>
+          <Post key={id}>
             <Header>
-              <ProfileImage src={profileImage} />
+              <ProfileImage src={profile_image} />
               <HeaderContent>
                 <UserName>{name}</UserName>
                 <Location></Location>

@@ -1,6 +1,8 @@
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 
+import { ModalAddPost } from "../organisms/modals";
+
 import { ReactComponent as IconHome } from "../../assets/images/home.svg";
 import { ReactComponent as IconSearch } from "../../assets/images/search.svg";
 import { ReactComponent as IconDirect } from "../../assets/images/direct.svg";
@@ -49,6 +51,8 @@ const PageHeader = () => {
       <OutletWrapper>
         <Outlet />
       </OutletWrapper>
+
+      <ModalAddPost />
     </>
   );
 };
@@ -60,6 +64,7 @@ const Header = styled.header`
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 100;
 `;
 const Main = styled.div`
   max-width: 975px;
