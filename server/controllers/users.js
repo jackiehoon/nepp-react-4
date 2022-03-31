@@ -59,7 +59,7 @@ export const postUsersToken = async (req, res) => {
   // password 체크
   const user = rows[0];
   const { salt } = user;
-  console.log(salt);
+
   const hashedPW = await bcrypt.hash(password, salt);
   if (user.password !== hashedPW) {
     return res
@@ -70,7 +70,7 @@ export const postUsersToken = async (req, res) => {
   // 토큰 생성
 
   const payload = { userId: user.id };
-  const option = { expiresIn: "1s" };
+  const option = { expiresIn: "1d" };
   const token = jwt.sign(payload, secretKey, option);
   res.send({ success: true, token });
 };

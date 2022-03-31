@@ -12,11 +12,7 @@ const LoginCheck = () => {
     }
   }, [isLogin]);
 
-  return (
-    <>
-      <Outlet />
-    </>
-  );
+  return isLogin && <Outlet />;
 };
 
 export default LoginCheck;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import styled from "styled-components";
 
@@ -11,6 +12,7 @@ import { ReactComponent as IconExplore } from "../../assets/images/explore.svg";
 import { ReactComponent as IconActivity } from "../../assets/images/activity.svg";
 
 const PageHeader = () => {
+  const [showModalAddPost, setShowModalAddPost] = useState(false);
   return (
     <>
       <Header>
@@ -30,7 +32,7 @@ const PageHeader = () => {
             <IconWrapper>
               <IconDirect />
             </IconWrapper>
-            <IconWrapper>
+            <IconWrapper onClick={() => setShowModalAddPost(true)}>
               <IconNewPost />
             </IconWrapper>
             <IconWrapper>
@@ -52,7 +54,9 @@ const PageHeader = () => {
         <Outlet />
       </OutletWrapper>
 
-      <ModalAddPost />
+      {showModalAddPost && (
+        <ModalAddPost onClose={() => setShowModalAddPost(false)} />
+      )}
     </>
   );
 };
