@@ -74,3 +74,51 @@ export const postUsersToken = async (req, res) => {
   const token = jwt.sign(payload, secretKey, option);
   res.send({ success: true, token });
 };
+
+export const getUsersMyInfo = async (req, res) => {
+  // 1. 토큰으로 누가 요청했는지 확인
+  // 2. 토큰의 userId로 db에서 유저정보 가져오기
+  // 3. 유저정보 응답해주기
+
+  const token = req.headers.authorization;
+
+  let payload;
+  try {
+    payload = jwt.verify(token, secretKey);
+  } catch (e) {
+    console.log(e);
+    return res.status(401).send({ success: false });
+  }
+  const { userId } = payload;
+
+  const query = `
+    SELECT memo, name, profile_image, user_name
+    FROM user WHERE id = ${userId};
+  `;
+  const [rows] = await conn.query(query);
+  const [user] = rows;
+
+  res.send({ user });
+};
+
+export const patchUsersMyProfileImage = async (req, res) => {
+  const token = req.headers.authorization;
+
+  let payload;
+  try {
+    payload = jwt.verify(token, secretKey);
+  } catch (e) {
+    console.log(e);
+    return res.status(401).send({ success: false });
+  }
+  const { userId } = payload;
+
+  const { profile_image } = req.body;
+
+  const query = `
+    UPDATE user SET profile_image = '${profile_image}'
+    WHERE id = ${userId};
+  `;
+  await conn.query(query);
+  res.send({ success: true });
+};

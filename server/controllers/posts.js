@@ -49,5 +49,16 @@ export const postPosts = async (req, res) => {
   const [newPost] = await conn.query(query);
   const postId = newPost.insertId;
 
-  res.send("ASDF");
+  const promiseList = fileList.map((file) => {
+    const query2 = `
+      INSERT INTO image(post_id, url)
+      VALUES(${postId}, '${file}');
+    `;
+
+    return conn.query(query2);
+  });
+
+  await Promise.all(promiseList);
+
+  res.send({ success: true });
 };
