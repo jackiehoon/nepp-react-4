@@ -2,11 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { uploadImage } from "../../apis/upload";
 
-import { getMyInfo, patchMyProfileImage } from "../../apis/user";
+import { getMyInfo, patchMyProfileImage, putMyInfo } from "../../apis/user";
 
 const ProfileEdit = () => {
   const fileEl = useRef(null);
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    memo: "",
+    name: "",
+    user_name: "",
+  });
   const { memo, profile_image, name, user_name } = form;
   useEffect(() => {
     refreshInfo();
@@ -22,6 +26,15 @@ const ProfileEdit = () => {
     const profile_image = await uploadImage(file);
     await patchMyProfileImage({ profile_image });
     refreshInfo();
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = () => {
+    putMyInfo(form);
   };
 
   return (
@@ -51,25 +64,35 @@ const ProfileEdit = () => {
         <Row>
           <Left>이름</Left>
           <Right>
-            <InputText value={name} />
+            <InputText
+              value={name}
+              required
+              name="name"
+              onChange={handleChange}
+            />
           </Right>
         </Row>
         <Row>
           <Left>사용자 이름</Left>
           <Right>
-            <InputText value={user_name} />
+            <InputText
+              value={user_name}
+              required
+              name="user_name"
+              onChange={handleChange}
+            />
           </Right>
         </Row>
         <Row>
           <Left>소개</Left>
           <Right>
-            <Textarea value={memo} />
+            <Textarea value={memo} name="memo" onChange={handleChange} />
           </Right>
         </Row>
         <Row>
           <Left></Left>
           <Right>
-            <BtnSubmit>제출</BtnSubmit>
+            <BtnSubmit onClick={handleSubmit}>제출</BtnSubmit>
           </Right>
         </Row>
       </Main>

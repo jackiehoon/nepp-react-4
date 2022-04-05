@@ -103,7 +103,6 @@ export const getUsersMyInfo = async (req, res) => {
 
 export const patchUsersMyProfileImage = async (req, res) => {
   const token = req.headers.authorization;
-
   let payload;
   try {
     payload = jwt.verify(token, secretKey);
@@ -118,6 +117,27 @@ export const patchUsersMyProfileImage = async (req, res) => {
   const query = `
     UPDATE user SET profile_image = '${profile_image}'
     WHERE id = ${userId};
+  `;
+  await conn.query(query);
+  res.send({ success: true });
+};
+
+export const putUsersMyInfo = async (req, res) => {
+  const token = req.headers.authorization;
+  let payload;
+  try {
+    payload = jwt.verify(token, secretKey);
+  } catch (e) {
+    console.log(e);
+    return res.status(401).send({ success: false });
+  }
+  const { userId } = payload;
+  const { name, user_name, memo } = req.body;
+
+  const query = `
+    UPDATE user 
+    SET name = '${name}', user_name='${user_name}', memo='${memo}'
+    WHERE id=${userId};
   `;
   await conn.query(query);
   res.send({ success: true });
